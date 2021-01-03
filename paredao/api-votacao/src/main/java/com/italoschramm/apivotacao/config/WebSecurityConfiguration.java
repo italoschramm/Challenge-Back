@@ -41,7 +41,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      };
 
     protected void configure(HttpSecurity httpSecurity) throws Exception{
-        httpSecurity.csrf().disable().authorizeRequests()
+        httpSecurity.csrf().disable().cors().and().authorizeRequests()
         		.antMatchers(HttpMethod.GET, "/system/**").access("hasRole('PRODUCTION')")
         		.antMatchers(HttpMethod.GET, "/system/version").access("hasRole('PRODUCTION')")
         		.antMatchers(HttpMethod.GET, "/system").access("hasRole('PRODUCTION')")

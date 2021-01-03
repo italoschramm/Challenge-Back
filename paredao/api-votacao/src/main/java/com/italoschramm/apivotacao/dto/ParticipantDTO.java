@@ -1,6 +1,6 @@
-package com.italoschramm.apivotacao.client;
+package com.italoschramm.apivotacao.dto;
 
-public class ParticipantClient {
+public class ParticipantDTO {
 
 	private long id;
 	

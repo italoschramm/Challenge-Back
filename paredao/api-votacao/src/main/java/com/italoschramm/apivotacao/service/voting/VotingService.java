@@ -17,4 +17,5 @@ public interface VotingService {
 	public boolean inactiveVoting(Long idVoting);
 	public boolean activeVoting(Long idVoting);
 	public boolean updateVoting(Voting voting);
+	public boolean isVotingValid(Long idVoting) throws Exception;
 }

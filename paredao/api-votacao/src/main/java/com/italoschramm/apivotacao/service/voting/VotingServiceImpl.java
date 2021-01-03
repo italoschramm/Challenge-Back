@@ -135,4 +135,13 @@ public class VotingServiceImpl implements VotingService{
 		}
 		return false;
 	}
+	
+	@Override
+	public boolean isVotingValid(Long idVoting) {
+		Voting voting = getVotingById(idVoting);
+		if(voting == null)
+			return false;
+		else
+			return true;
+	}
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.italoschramm.apivotacao.client.ParticipantClient;
+import com.italoschramm.apivotacao.dto.ParticipantDTO;
 import com.italoschramm.apivotacao.model.Participant;
 import com.italoschramm.apivotacao.service.participant.ParticipantService;
 
@@ -26,7 +26,7 @@ public class ParticipantController {
 	private ParticipantService participantService;
 	
 	@PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody ParticipantClient participant) {
+    public ResponseEntity<String> register(@RequestBody ParticipantDTO participant) {
 		
 		if (participantService.existsParticipant(participant.getName()))
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Participant already exists!");
@@ -67,7 +67,7 @@ public class ParticipantController {
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<String> update(@RequestBody ParticipantClient participantClient){
+	public ResponseEntity<String> update(@RequestBody ParticipantDTO participantClient){
 		Participant participant = participantService.getParticipantById(participantClient.getId());
 		if(participant != null) {
 			participant.setActive(participantClient.getActive());

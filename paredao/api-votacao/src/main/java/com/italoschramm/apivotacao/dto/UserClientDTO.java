@@ -1,6 +1,6 @@
-package com.italoschramm.apivotacao.client;
+package com.italoschramm.apivotacao.dto;
 
-public class UserClientJson {
+public class UserClientDTO {
 	
 	private String username;
 	private String password;

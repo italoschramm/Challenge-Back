@@ -1,9 +1,9 @@
-package com.italoschramm.apivotacao.client;
+package com.italoschramm.apivotacao.dto;
 
 import java.util.Date;
 import java.util.List;
 
-public class VotingClient {
+public class VotingDTO {
 	
 	private Date dateStart;
 	
@@ -11,7 +11,7 @@ public class VotingClient {
 	
 	private Boolean active;
 
-	private List<ParticipantClient> participants;
+	private List<ParticipantDTO> participants;
 
 	public Date getDateStart() {
 		return dateStart;
@@ -37,11 +37,11 @@ public class VotingClient {
 		this.active = active;
 	}
 
-	public List<ParticipantClient> getParticipants() {
+	public List<ParticipantDTO> getParticipants() {
 		return participants;
 	}
 
-	public void setParticipants(List<ParticipantClient> participants) {
+	public void setParticipants(List<ParticipantDTO> participants) {
 		this.participants = participants;
 	}
 	

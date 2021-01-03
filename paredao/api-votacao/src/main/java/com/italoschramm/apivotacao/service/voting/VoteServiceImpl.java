@@ -24,6 +24,9 @@ public class VoteServiceImpl implements VoteService{
 		if(votingParticipants == null)
 			throw new Exception("Participant not found in the vote!");	
 		
+		if(votingLogService.userLimitVotes(user, voting))
+			throw new Exception("Maximum limit of votes per minute reached!");
+		
 		votingParticipants.setVotes(votingParticipants.getVotes() + 1);
 		try {
 			votingParticipantsRepository.save(votingParticipants);

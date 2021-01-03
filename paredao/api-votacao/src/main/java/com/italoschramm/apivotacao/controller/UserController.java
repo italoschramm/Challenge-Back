@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.italoschramm.apivotacao.client.UserClientJson;
+import com.italoschramm.apivotacao.dto.UserClientDTO;
 import com.italoschramm.apivotacao.service.user.UserService;
 
 @RestController
@@ -19,7 +19,7 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserClientJson user) {
+    public ResponseEntity<String> register(@RequestBody UserClientDTO user) {
 		
 		if (userService.existsUser(user.getUsername()))
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists!");

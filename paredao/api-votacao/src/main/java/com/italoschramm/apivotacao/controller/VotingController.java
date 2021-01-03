@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.italoschramm.apivotacao.client.ParticipantClient;
-import com.italoschramm.apivotacao.client.VotingClient;
+import com.italoschramm.apivotacao.dto.ParticipantDTO;
+import com.italoschramm.apivotacao.dto.VotingDTO;
 import com.italoschramm.apivotacao.model.Participant;
 import com.italoschramm.apivotacao.model.Voting;
 import com.italoschramm.apivotacao.service.participant.ParticipantService;
@@ -33,13 +33,13 @@ public class VotingController {
 	private ParticipantService participantService;
 	
 	@PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody VotingClient voting) {
+    public ResponseEntity<String> register(@RequestBody VotingDTO voting) {
 		
 		if (votingService.existsVoting(voting.getDateStart(), voting.getDateEnd()))
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Voting already exists!");
 		
 		List<Participant> participants =  new ArrayList<Participant>();
-		for(ParticipantClient participantClient : voting.getParticipants()) {
+		for(ParticipantDTO participantClient : voting.getParticipants()) {
 			Participant participant = participantService.getParticipantById(participantClient.getId());
 			if(participant != null)
 				participants.add(participant);

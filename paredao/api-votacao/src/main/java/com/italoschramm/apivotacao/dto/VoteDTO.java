@@ -1,6 +1,6 @@
-package com.italoschramm.apivotacao.client;
+package com.italoschramm.apivotacao.dto;
 
-public class VoteClient {
+public class VoteDTO {
 
 	private Long idVoting;
 	

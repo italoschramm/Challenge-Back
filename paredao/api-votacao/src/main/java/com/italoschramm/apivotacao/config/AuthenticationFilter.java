@@ -1,7 +1,11 @@
 package com.italoschramm.apivotacao.config;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.italoschramm.apivotacao.client.UserClientLogin;
+import com.italoschramm.apivotacao.dto.AuthenticationDTO;
+
 import org.springframework.security.core.userdetails.User;
 
 import io.jsonwebtoken.Jwts;
@@ -52,6 +56,18 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter{
                 .signWith(SignatureAlgorithm.HS512, "SecretKeyToGenJWTs".getBytes())
                 .compact();
         response.addHeader("Authorization","Bearer " + token);
+        response.addHeader("Content-Type", "application/json");
+        try {
+        	AuthenticationDTO auth = new AuthenticationDTO();
+        	auth.setToken("Bearer " + token);
+        	auth.setAuthorizations(authentication.getAuthorities());
+        	Gson gson = new Gson();
+			response.getOutputStream().print((gson.toJson(auth)));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     
     public Collection<? extends GrantedAuthority> getAuthorities(){

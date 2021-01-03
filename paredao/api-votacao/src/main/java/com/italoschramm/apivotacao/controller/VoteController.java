@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.italoschramm.apivotacao.client.VoteClient;
+import com.italoschramm.apivotacao.dto.VoteDTO;
 import com.italoschramm.apivotacao.model.Participant;
 import com.italoschramm.apivotacao.model.User;
 import com.italoschramm.apivotacao.model.Voting;
@@ -34,7 +34,7 @@ public class VoteController {
 	private UserService userService;
 	
 	@PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody VoteClient vote) {
+    public ResponseEntity<String> register(@RequestBody VoteDTO vote) {
 		
 		Voting voting = votingService.getVotingById(vote.getIdVoting());
 		if(voting == null)
