@@ -89,7 +89,6 @@
     methods: {
 
       validateState(name) {
-        console.log(name + ': ' + this.$v.voting.participants.$anyError)
         const { $dirty, $error } = this.$v.voting[name];
         return $dirty ? !$error : null;
       },

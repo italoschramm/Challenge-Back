@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Login from './components/routes/Login.vue';
 import Home from './components/routes/home.vue';
 import RegisterVoting from './components/routes/RegisterVoting.vue';
+import RegisterParticipant from './components/routes/RegisterParticipant.vue';
 import auth  from './api/auth';
 
 Vue.use(VueRouter)
@@ -27,8 +28,14 @@ const routes = [
     { 
         path: '/RegisterVoting', 
         component: RegisterVoting, 
-        titulo: 'Register Voting',
+        titulo: 'Cadastrar Votação',
         meta: {requiresAuth: true},
+    },
+    { 
+      path: '/RegisterParticipant', 
+      component: RegisterParticipant, 
+      titulo: 'Cadastrar Participant',
+      meta: {requiresAuth: true},
     },
     { 
         path: '*', 
