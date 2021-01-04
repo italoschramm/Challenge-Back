@@ -7,7 +7,9 @@ import auth from './api/auth';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BootstrapVue, IconsPlugin  } from 'bootstrap-vue';
+import Vuelidate from 'vuelidate';
 
+Vue.use(Vuelidate)
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VueResource);
