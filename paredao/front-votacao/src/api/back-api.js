@@ -37,6 +37,12 @@ export default {
     registerVoting(voting){
         return AXIOS.post('/voting/register', voting, headersPost);
     },
+    registerParticipant(participant){
+        return AXIOS.post('/participant/register', participant, headersPost);
+    },
+    updateParticipant(participant){
+        return AXIOS.put('/participant/update', participant, headersPost);
+    },
     getSecured(user, password) {
         return AXIOS.get(`/secured/`,{
             auth: {

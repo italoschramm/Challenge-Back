@@ -1,5 +1,8 @@
 package com.italoschramm.apivotacao.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -68,7 +71,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Bean
     CorsConfigurationSource corsConfigurationSource(){
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**",new CorsConfiguration().applyPermitDefaultValues());
+        CorsConfiguration cors = new CorsConfiguration();
+        List<String> methodsAllowed = new ArrayList<String>();
+        methodsAllowed.add(HttpMethod.GET.name());
+        methodsAllowed.add(HttpMethod.POST.name());
+        methodsAllowed.add(HttpMethod.DELETE.name());
+        methodsAllowed.add(HttpMethod.PUT.name());
+        cors.setAllowedMethods(methodsAllowed);
+        cors.applyPermitDefaultValues();
+        source.registerCorsConfiguration("/**", cors);
         return source;
     }
     

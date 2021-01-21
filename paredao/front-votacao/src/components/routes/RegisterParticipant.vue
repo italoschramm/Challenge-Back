@@ -13,11 +13,10 @@
         :disabled="disableSelect"
         ></b-form-select>
     </div>
-    <div class="mt-3">Selected: <strong>{{ participant.id }}</strong></div>
     <br>
     <div class="div-buttons"> 
-        <b-button @click="newParticipant" type="submit" :disabled="disableNew" variant="primary">Novo</b-button>
-        <b-button @click="editParticipant" :disabled="disableEdit" type="submit" variant="primary">Editar</b-button>
+        <b-button @click="newParticipant" :disabled="disableNew" variant="primary">Novo</b-button>
+        <b-button @click="editParticipant" :disabled="disableEdit" variant="primary">Editar</b-button>
   </div>
 
     <div class="card-wrapper">
@@ -50,7 +49,6 @@
         >
           <b-form-select :options="optionsStates" :state="validateState('state')" :disabled="disableInput" id="state" v-model="$v.participant.state.$model" class="mb-2" locale="pt"></b-form-select>
           <b-form-invalid-feedback id="state-error">Este campo é obrigatório</b-form-invalid-feedback>
-           <div class="mt-3">Selected: <strong>{{ participant.state }}</strong></div>
       </b-form-group>
 
       <b-button type="submit" :disabled="disableSave" variant="primary">Salvar</b-button>
@@ -65,6 +63,7 @@
 <script>
   import { HotTable } from '@handsontable/vue';
   import url from '../../api/back-api';
+  import router from '../../routes';
   import { required, between } from 'vuelidate/lib/validators';
 
    export default {
@@ -81,6 +80,7 @@
         show: true,
         errors: false,
         empty: true,
+        new: false,
         selectedId: 0,
         disableNew: false,
         disableEdit: true,
@@ -147,6 +147,7 @@
         this.disableEdit = false
       },
       editParticipant(){
+        this.new = false
         this.enableEdits()
       },
       cancel(){
@@ -154,9 +155,10 @@
         this.disableEdits()
       },
       newParticipant(){
+        this.new = true
         this.cleanParticipant()
         this.enableEdits()
-        selectedId = 0
+        this.selectedId = 0
       },
       disableEdits(){
         this.disableInput = true
@@ -179,6 +181,29 @@
           state: '',
           id: 0,
           active: false}
+      },
+
+      onSubmit(event) {  
+        this.$v.participant.$touch();
+        if (!this.$v.participant.$anyError){
+          event.preventDefault()
+          console.log(JSON.stringify(this.participant))
+          this.participant.active = true
+          if(this.new){
+            url.registerParticipant(this.participant).then(response => {
+              alert('Salvo com sucesso!')
+              router.push('/Home')     
+            }).catch ((error)=> console.log(error));
+            this.uiState = "form submitted";
+          }
+          else{
+            url.updateParticipant(this.participant).then(response => {
+              alert('Salvo com sucesso!')
+              router.push('/Home')     
+            }).catch ((error)=> console.log(error));
+            this.uiState = "form submitted";
+          }
+        }
       }
     },
 
